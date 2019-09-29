@@ -18,4 +18,11 @@ const io = socketIO(server)
 
 io.on('connection', (socket)=>{
   console.log('New conecction',socket.id);
+  socket.on('chat:message',(datos)=>{
+    io.sockets.emit('chat:message',datos);
+  });
+
+  socket.on('chat:typing',(username)=>{
+    socket.broadcast.emit('chat:typing',username);
+  });
 });
